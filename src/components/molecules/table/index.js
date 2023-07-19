@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
-import DataTable from "react-data-table-component";
 
 function Tabel() {
   const [racking, setRacking] = useState([]);
+
+  const deleteData = (id) => {
+    try {
+      let response = axios.delete(
+        `http://192.168.88.254/db/deletedatacimory.php`
+      );
+      setRacking(response.data);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   const getData = async () => {
     try {
@@ -21,62 +32,51 @@ function Tabel() {
     getData();
   }, []);
 
-  const column = [
-    {
-      name: "Rack",
-      selector: (row) => row.rack,
-      sortable: true,
-    },
-    {
-      name: "Rack ID",
-      selector: (row) => row.rid,
-      sortable: true,
-    },
-    {
-      name: "Material",
-      selector: (row) => row.mtrl,
-      sortable: true,
-    },
-    {
-      name: "Batch",
-      selector: (row) => row.bch,
-      sortable: true,
-    },
-    {
-      name: "SAP Batch",
-      selector: (row) => row.bsap,
-      sortable: true,
-    },
-    {
-      name: "BoQ",
-      selector: (row) => row.boq,
-      sortable: true,
-    },
-    {
-      name: "Qty Pack",
-      selector: (row) => row.qtyp,
-      sortable: true,
-    },
-    {
-      name: "Supplier",
-      selector: (row) => row.spl,
-      sortable: true,
-    },
-    {
-      name: "Qty per pack",
-      selector: (row) => row.qtys,
-      sortable: true,
-    },
-    {
-      name: "Qty UoM",
-      selector: (row) => row.qtyw,
-      sortable: true,
-    },
-  ];
-
   return (
     <div>
-      <DataTable columns={column} data={racking} pagination></DataTable>
+      <Table striped bordered hover variant="white">
+        <thead>
+          <tr>
+            <th>Rack</th>
+            <th>Rack Code</th>
+            <th>Material</th>
+            <th>Batch</th>
+            <th>SAP Batch</th>
+            <th>BoQ</th>
+            <th>Qty Pack</th>
+            <th>Supplier</th>
+            <th>Qty per Pack</th>
+            <th>Qty in UoM</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {racking?.map((rack, index) => {
+            return (
+              <tr key={index}>
+                <td>{rack.rack}</td>
+                <td>{rack.rid}</td>
+                <td>{rack.mtrl}</td>
+                <td>{rack.bch}</td>
+                <td>{rack.bsap}</td>
+                <td>{rack.boq}</td>
+                <td>{rack.qtyp}</td>
+                <td>{rack.spl}</td>
+                <td>{rack.qtys}</td>
+                <td>{rack.qtyw}</td>
+                <td>
+                  <button
+                    className="btn btn-outline btn-xs btn-danger"
+                    onClick={(e) => deleteData(e, rack.rid)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </div>
   );
 }

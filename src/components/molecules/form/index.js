@@ -24,15 +24,6 @@ function Forms() {
   };
 
   function handleSubmit(e) {
-    // e.preventDefault();
-    // axios
-    //   .post("http://192.168.88.254/db/inputdatacimory.php", { post })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
     var API_Url = "http://192.168.88.254/db/inputdatacimory.php";
     var Data = {
       rack: post.rack,
@@ -65,7 +56,7 @@ function Forms() {
   }
 
   return (
-    <div>
+    <div style={{ height: "500px", overflowY: "scroll" }}>
       <Form onSubmit={handleSubmit}>
         <h2>Form Input Data</h2>
         <Form.Group className="mb-1" controlId="rack">
