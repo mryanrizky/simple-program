@@ -1,0 +1,18 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(2, 115, 2);
+  color: whitesmoke;
+}
+
+.copyright {
+  background-color: rgb(14, 89, 14);
+  padding: 10px 0px;
+  p {
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    margin: 0px;
+  }
+}
